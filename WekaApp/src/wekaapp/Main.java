@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import weka.core.Attribute;
 
@@ -132,19 +133,27 @@ public class Main extends javax.swing.JFrame
         if (data.classIndex() == -1)
         data.setClassIndex(data.numAttributes() - 1);
         
-        if(source != null)
+        int countAtr = data.numAttributes();
+        int countRows = data.numInstances();
+        
+        String [] tblColumnNames = new String[countAtr];
+        String [][] tblRows = new String[countRows][countAtr];
+        
+        for(int i=0;i<countAtr;i++)
         {
-            JOptionPane.showMessageDialog(this,"Plik wczytany!");
+           tblColumnNames[i] = data.attribute(i).name();
         }
         
-        //int countAtr = data.numAttributes();
-        
-        //String [] tbl = new String[countAtr];
-        
-        //for(int i=0;i<countAtr;i++)
-        //{
-           
-        //}
+        for(int i=0;i<countRows;i++)
+        {
+           for(int j=0;j<countAtr;j++)
+           {
+                tblRows[i][j] = data.instance(i).toString(j);
+           }
+        }
+ 
+        table.setModel(new DefaultTableModel(tblRows, tblColumnNames));
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
