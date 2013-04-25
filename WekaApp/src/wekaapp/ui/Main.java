@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 import javax.swing.JScrollPane;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
+import wekaapp.data.Helper;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -115,6 +117,10 @@ public class Main extends javax.swing.JFrame
         
         try {
             source = new DataSource(this.jTextField1.getText());
+            if(source == null){
+                Helper.log.e("We got null");
+                return;
+            }
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
