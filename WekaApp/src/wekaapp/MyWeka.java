@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import weka.core.Attribute;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
@@ -48,6 +49,11 @@ public class MyWeka
         try 
         {
             cls.setOptions(options);
+            
+            //for(String s:options)
+            //{
+              //  JOptionPane.showInputDialog(s);
+            //}
             cls.buildClassifier(data);
             
             final JFrame jf = new JFrame("Drzewo decyzyjne");
