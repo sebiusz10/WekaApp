@@ -22,9 +22,14 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="chkMinimal" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="txtMinimal" min="-2" pref="41" max="-2" attributes="0"/>
+                  </Group>
                   <Component id="lblInfo" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                       <Group type="102" attributes="0">
@@ -59,7 +64,12 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="375" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="chkMinimal" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtMinimal" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnGenerateTree" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="chkUnprunedTree" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -128,6 +138,20 @@
     <Component class="javax.swing.JCheckBox" name="chkUnprunedTree">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nie przycinaj drzewa"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkMinimal">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ustal minimaln&#x105; liczb&#x119; przypadk&#xf3;w w li&#x15b;ciu"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkMinimalActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtMinimal">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="2"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
   </SubComponents>

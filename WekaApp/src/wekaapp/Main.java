@@ -60,6 +60,8 @@ public class Main extends javax.swing.JFrame
         jScrollPane1 = new javax.swing.JScrollPane();
         oSourceTable = new javax.swing.JTable();
         chkUnprunedTree = new javax.swing.JCheckBox();
+        chkMinimal = new javax.swing.JCheckBox();
+        txtMinimal = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,6 +102,16 @@ public class Main extends javax.swing.JFrame
 
         chkUnprunedTree.setText("Nie przycinaj drzewa");
 
+        chkMinimal.setText("Ustal minimalną liczbę przypadków w liściu");
+        chkMinimal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkMinimalActionPerformed(evt);
+            }
+        });
+
+        txtMinimal.setText("2");
+        txtMinimal.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,6 +119,10 @@ public class Main extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(chkMinimal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtMinimal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblInfo)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
@@ -134,7 +150,11 @@ public class Main extends javax.swing.JFrame
                     .addComponent(btnBrowse))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chkMinimal)
+                    .addComponent(txtMinimal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGenerateTree)
                     .addComponent(chkUnprunedTree))
@@ -187,7 +207,7 @@ public class Main extends javax.swing.JFrame
     
     private void btnGenerateTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateTreeActionPerformed
         
-        ArrayList<String> lsOptions = null;
+        ArrayList<String> lsOptions = new ArrayList<String>();
         
         if(this.chkUnprunedTree.isSelected())
         {
@@ -195,14 +215,35 @@ public class Main extends javax.swing.JFrame
             {
                 lsOptions = new ArrayList<String>();
             }
-            lsOptions.add("N");
+            lsOptions.add("U");
+        }
+               
+        if(this.chkUnprunedTree.isSelected())
+        {
+            if(lsOptions == null)
+            {
+                lsOptions = new ArrayList<String>();
+            }
+            lsOptions.add("M" + this.txtMinimal.getText());
         }
         
         String[] aOptions = new String[lsOptions.size()];
-        lsOptions.toArray(aOptions); // fill the array
+        lsOptions.toArray(aOptions); 
         
         MyWeka.GenerateDecisiveTree(data, aOptions);
     }//GEN-LAST:event_btnGenerateTreeActionPerformed
+
+    private void chkMinimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkMinimalActionPerformed
+        
+        if(this.chkMinimal.isSelected())
+        {
+            this.txtMinimal.setEnabled(true);
+        }
+        else
+        {
+            this.txtMinimal.setEnabled(false);
+        }
+    }//GEN-LAST:event_chkMinimalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,11 +260,13 @@ public class Main extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBrowse;
     private javax.swing.JButton btnGenerateTree;
+    private javax.swing.JCheckBox chkMinimal;
     private javax.swing.JCheckBox chkUnprunedTree;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblInfo;
     private javax.swing.JLabel lblSource;
     private javax.swing.JTable oSourceTable;
+    private javax.swing.JTextField txtMinimal;
     private javax.swing.JTextField txtSource;
     // End of variables declaration//GEN-END:variables
 }
