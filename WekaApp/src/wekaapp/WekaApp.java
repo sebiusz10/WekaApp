@@ -12,7 +12,6 @@ import javax.swing.*;
  */
 public class WekaApp 
 {
-
     public static void main(String[] args)
     {
         Main main = new Main();

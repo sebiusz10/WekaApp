@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.Toolkit;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -32,7 +33,6 @@ public class Main extends javax.swing.JFrame
 {
 
     Instances data = null;
-    DataSource source = null;
     
     public Main()
     {
@@ -52,35 +52,36 @@ public class Main extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        txtSource = new javax.swing.JTextField();
+        lblInfo = new javax.swing.JLabel();
+        btnBrowse = new javax.swing.JButton();
+        lblSource = new javax.swing.JLabel();
+        btnGenerateTree = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         oSourceTable = new javax.swing.JTable();
+        chkUnprunedTree = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField1.setName("txtPath");
+        txtSource.setName("txtPath");
 
-        jLabel1.setText("Plik arff lub csv.");
+        lblInfo.setText("Plik arff lub csv.");
 
-        jButton1.setText("Przeglądaj");
-        jButton1.setName("btnBrowse");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBrowse.setText("Przeglądaj");
+        btnBrowse.setName("btnBrowse");
+        btnBrowse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBrowseActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Zródło:");
+        lblSource.setText("Zródło:");
 
-        jButton3.setText("Generuj drzewo");
-        jButton3.setName("btnBrowse");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnGenerateTree.setText("Generuj drzewo");
+        btnGenerateTree.setName("btnBrowse");
+        btnGenerateTree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnGenerateTreeActionPerformed(evt);
             }
         });
 
@@ -97,6 +98,8 @@ public class Main extends javax.swing.JFrame
         ));
         jScrollPane1.setViewportView(oSourceTable);
 
+        chkUnprunedTree.setText("Nie przycinaj drzewa");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,40 +107,44 @@ public class Main extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton3)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(lblInfo)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(chkUnprunedTree)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnGenerateTree))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(lblSource)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblInfo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(lblSource)
+                    .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBrowse))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGenerateTree)
+                    .addComponent(chkUnprunedTree))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseActionPerformed
         
         FileDialog fd =new FileDialog(this,"Wczytaj",FileDialog.LOAD);
    
@@ -145,24 +152,16 @@ public class Main extends javax.swing.JFrame
         String sDirectory=fd.getDirectory();
         String sFile=fd.getFile();
         
-        this.jTextField1.setText(sDirectory + "\\" + sFile);
+        this.txtSource.setText(sDirectory + "\\" + sFile);
         
         //wczytanie pliku
-        
-                try {
-            source = new DataSource(this.jTextField1.getText());
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
-            data = source.getDataSet();
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        LoadData(this.txtSource.getText());
+    }//GEN-LAST:event_btnBrowseActionPerformed
 
-        if (data.classIndex() == -1)
-        data.setClassIndex(data.numAttributes() - 1);
+    private void LoadData(String Path)
+    {
+     
+        this.data = MyWeka.LoadFile(Path);
         
         int countAtr = data.numAttributes();
         int countRows = data.numInstances();
@@ -184,40 +183,26 @@ public class Main extends javax.swing.JFrame
         }
  
         oSourceTable.setModel(new DefaultTableModel(tblRows, tblColumnNames));
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    }
+    
+    private void btnGenerateTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateTreeActionPerformed
         
-        J48 cls = new J48();
+        ArrayList<String> lsOptions = null;
         
-        try 
+        if(this.chkUnprunedTree.isSelected())
         {
-            cls.buildClassifier(data);
-            
-            final JFrame jf = new JFrame("Drzewo decyzyjne");
-            jf.setSize(500,400);
-            jf.getContentPane().setLayout(new BorderLayout());
-            TreeVisualizer tv = new TreeVisualizer(null,
-            cls.graph(),
-            new PlaceNode2());
-            jf.getContentPane().add(tv, BorderLayout.CENTER);
-            jf.addWindowListener(new java.awt.event.WindowAdapter() 
+            if(lsOptions == null)
             {
-                public void windowClosing(java.awt.event.WindowEvent e) 
-            {
-                jf.dispose();
+                lsOptions = new ArrayList<String>();
             }
-            });
- 
-            jf.setVisible(true);
-            tv.fitToScreen();
-            
-            } 
-            catch (Exception ex) 
-            {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    }//GEN-LAST:event_jButton3ActionPerformed
+            lsOptions.add("N");
+        }
+        
+        String[] aOptions = new String[lsOptions.size()];
+        lsOptions.toArray(aOptions); // fill the array
+        
+        MyWeka.GenerateDecisiveTree(data, aOptions);
+    }//GEN-LAST:event_btnGenerateTreeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,12 +217,13 @@ public class Main extends javax.swing.JFrame
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnBrowse;
+    private javax.swing.JButton btnGenerateTree;
+    private javax.swing.JCheckBox chkUnprunedTree;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblInfo;
+    private javax.swing.JLabel lblSource;
     private javax.swing.JTable oSourceTable;
+    private javax.swing.JTextField txtSource;
     // End of variables declaration//GEN-END:variables
 }
