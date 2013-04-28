@@ -1,22 +1,17 @@
 package wekaapp.ui;
-import com.sun.xml.internal.ws.api.message.Message;
-import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FileDialog;
+
+import java.awt.Toolkit;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JScrollPane;
-import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
 import wekaapp.data.Helper;
 
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import weka.core.Attribute;
-import weka.classifiers.trees.J48;
 import weka.core.Instances;
-import weka.gui.treevisualizer.PlaceNode2;
-import weka.gui.treevisualizer.TreeVisualizer;
+import wekaapp.MyWeka;
 
 
 
@@ -28,61 +23,98 @@ public class Main extends javax.swing.JFrame
 {
 
     Instances data = null;
-    DataSource source = null;
-    JTable table = null;
-    JScrollPane scrollpane = null;
+    private String sDirectory;
+    private String sFile;
     
-    public Main() {
+    public Main()
+    {
         initComponents();
-        table = new JTable();
-        scrollpane = new JScrollPane(table);
-        scrollpane.setLocation(10, 110);
-        scrollpane.setSize(610, 240);
-        this.add(scrollpane);
+        CenterFrame();
+    }
+    
+    private void CenterFrame()
+    {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = this.getSize();
+        
+        this.setLocation((screenSize.width - frameSize.width)/2, (screenSize.height - frameSize.height)/2);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        txtSource = new javax.swing.JTextField();
+        lblInfo = new javax.swing.JLabel();
+        btnBrowse = new javax.swing.JButton();
+        lblSource = new javax.swing.JLabel();
+        btnGenerateTree = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        oSourceTable = new javax.swing.JTable();
+        chkUnprunedTree = new javax.swing.JCheckBox();
+        chkMinimal = new javax.swing.JCheckBox();
+        txtMinimal = new javax.swing.JTextField();
+        chkConfidence = new javax.swing.JCheckBox();
+        txtConfidence = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextField1.setName("txtPath");
+        txtSource.setName("txtPath");
 
-        jLabel1.setText("Plik arff lub csv.");
+        lblInfo.setText("Plik arff lub csv.");
 
-        jButton1.setText("Przeglądaj");
-        jButton1.setName("btnBrowse");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBrowse.setText("Przeglądaj");
+        btnBrowse.setName("btnBrowse");
+        btnBrowse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBrowseActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Zródło:");
+        lblSource.setText("Zródło:");
 
-        jButton2.setText("Wczytaj");
-        jButton2.setName("btnBrowse");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnGenerateTree.setText("Generuj drzewo");
+        btnGenerateTree.setName("btnBrowse");
+        btnGenerateTree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnGenerateTreeActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Generuj drzewo");
-        jButton3.setName("btnBrowse");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        oSourceTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(oSourceTable);
+
+        chkUnprunedTree.setText("Nie przycinaj drzewa");
+
+        chkMinimal.setText("Ustal minimalną liczbę przypadków w liściu");
+        chkMinimal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                chkMinimalActionPerformed(evt);
             }
         });
+
+        txtMinimal.setText("2");
+        txtMinimal.setEnabled(false);
+
+        chkConfidence.setText("Określ zaufanie");
+        chkConfidence.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkConfidenceActionPerformed(evt);
+            }
+        });
+
+        txtConfidence.setText("0,25");
+        txtConfidence.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,41 +123,64 @@ public class Main extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(lblInfo)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(chkConfidence)
+                                .addComponent(chkUnprunedTree))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnGenerateTree))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(lblSource)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtConfidence, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(chkMinimal)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtMinimal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblInfo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(lblSource)
+                    .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBrowse))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap(268, Short.MAX_VALUE))
+                    .addComponent(chkMinimal)
+                    .addComponent(txtMinimal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnGenerateTree))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chkConfidence)
+                            .addComponent(txtConfidence, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkUnprunedTree)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt) {                                          
         
         FileDialog fd =new FileDialog(this,"Wczytaj",FileDialog.LOAD);
    
@@ -134,10 +189,10 @@ public class Main extends javax.swing.JFrame
         String sFile=fd.getFile();
         
         this.jTextField1.setText(sDirectory + "\\" + sFile);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }                                        
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        DataSource source = null;
         try {
             source = new DataSource(this.jTextField1.getText());
             if(source == null){
@@ -147,15 +202,16 @@ public class Main extends javax.swing.JFrame
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        try {
-            data = source.getDataSet();
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.txtSource.setText(sDirectory + "\\" + sFile);
 
-        if (data.classIndex() == -1)
-        data.setClassIndex(data.numAttributes() - 1);
+        //wczytanie pliku
+        LoadData(this.txtSource.getText());
+    }                                         
+
+    private void LoadData(String Path)
+    {
+     
+        this.data = MyWeka.LoadFile(Path);
         
         int countAtr = data.numAttributes();
         int countRows = data.numInstances();
@@ -176,37 +232,57 @@ public class Main extends javax.swing.JFrame
            }
         }
  
-        table.setModel(new DefaultTableModel(tblRows, tblColumnNames));
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        J48 cls = new J48();
+        oSourceTable.setModel(new DefaultTableModel(tblRows, tblColumnNames));
+    }
+    
+    private void btnGenerateTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateTreeActionPerformed
         
-        try {
-            cls.buildClassifier(data);
-            
-                         // display classifier
-     final javax.swing.JFrame jf = 
-       new javax.swing.JFrame("Weka Classifier Tree Visualizer: J48");
-     jf.setSize(500,400);
-     jf.getContentPane().setLayout(new BorderLayout());
-     TreeVisualizer tv = new TreeVisualizer(null,
-         cls.graph(),
-         new PlaceNode2());
-     jf.getContentPane().add(tv, BorderLayout.CENTER);
-     jf.addWindowListener(new java.awt.event.WindowAdapter() {
-       public void windowClosing(java.awt.event.WindowEvent e) {
-         jf.dispose();
-       }
-     });
- 
-     jf.setVisible(true);
-     tv.fitToScreen();
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        ArrayList<String> lsOptions = new ArrayList<String>();
+        
+        if(this.chkUnprunedTree.isSelected())
+        {
+            lsOptions.add("U");
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+               
+        if(this.chkMinimal.isSelected())
+        {
+            lsOptions.add("M" + this.txtMinimal.getText());
+        }
+        
+        if(this.chkConfidence.isSelected())
+        {
+            lsOptions.add("C" + this.txtConfidence.getText());
+        }
+        
+        String[] aOptions = new String[lsOptions.size()];
+        lsOptions.toArray(aOptions); 
+        
+        MyWeka.GenerateDecisiveTree(data, aOptions);
+    }//GEN-LAST:event_btnGenerateTreeActionPerformed
+
+    private void chkMinimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkMinimalActionPerformed
+        
+        if(this.chkMinimal.isSelected())
+        {
+            this.txtMinimal.setEnabled(true);
+        }
+        else
+        {
+            this.txtMinimal.setEnabled(false);
+        }
+    }//GEN-LAST:event_chkMinimalActionPerformed
+
+    private void chkConfidenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkConfidenceActionPerformed
+        
+        if(this.chkConfidence.isSelected())
+        {
+            this.txtConfidence.setEnabled(true);
+        }
+        else
+        {
+            this.txtConfidence.setEnabled(false);
+        }
+    }//GEN-LAST:event_chkConfidenceActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,11 +297,17 @@ public class Main extends javax.swing.JFrame
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton btnBrowse;
+    private javax.swing.JButton btnGenerateTree;
+    private javax.swing.JCheckBox chkConfidence;
+    private javax.swing.JCheckBox chkMinimal;
+    private javax.swing.JCheckBox chkUnprunedTree;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblInfo;
+    private javax.swing.JLabel lblSource;
+    private javax.swing.JTable oSourceTable;
+    private javax.swing.JTextField txtConfidence;
+    private javax.swing.JTextField txtMinimal;
+    private javax.swing.JTextField txtSource;
     // End of variables declaration//GEN-END:variables
 }
