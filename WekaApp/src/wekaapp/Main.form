@@ -6,7 +6,6 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -26,15 +25,13 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="chkMinimal" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtMinimal" min="-2" pref="41" max="-2" attributes="0"/>
-                  </Group>
                   <Component id="lblInfo" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="chkUnprunedTree" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="chkConfidence" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkUnprunedTree" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnGenerateTree" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -45,6 +42,14 @@
                           <Component id="txtSource" min="-2" pref="457" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnBrowse" min="-2" pref="109" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                      <Component id="txtConfidence" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="chkMinimal" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="txtMinimal" min="-2" pref="41" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -65,15 +70,12 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="375" max="-2" attributes="0"/>
-              <EmptySpace pref="27" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="chkMinimal" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtMinimal" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -88,27 +90,6 @@
                       <Component id="chkUnprunedTree" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-=======
-=======
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
-=======
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
-=======
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnGenerateTree" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="chkUnprunedTree" alignment="3" min="-2" max="-2" attributes="0"/>
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
-=======
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
-=======
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
-=======
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -118,7 +99,7 @@
   <SubComponents>
     <Component class="javax.swing.JTextField" name="txtSource">
       <Properties>
-        <Property name="name" type="java.lang.String" value="txtPath" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="txtPath"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblInfo">
@@ -129,7 +110,7 @@
     <Component class="javax.swing.JButton" name="btnBrowse">
       <Properties>
         <Property name="text" type="java.lang.String" value="Przegl&#x105;daj"/>
-        <Property name="name" type="java.lang.String" value="btnBrowse" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="btnBrowse"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBrowseActionPerformed"/>
@@ -142,8 +123,8 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnGenerateTree">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Wczytaj"/>
-        <Property name="name" type="java.lang.String" value="btnBrowse" noResource="true"/>
+        <Property name="text" type="java.lang.String" value="Generuj drzewo"/>
+        <Property name="name" type="java.lang.String" value="btnBrowse"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerateTreeActionPerformed"/>
@@ -186,12 +167,13 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtMinimal">
       <Properties>
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
-        <Property name="text" type="java.lang.String" value="Generuj drzewo"/>
-        <Property name="name" type="java.lang.String" value="btnBrowse" noResource="true"/>
+        <Property name="text" type="java.lang.String" value="2"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkConfidence">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Okre&#x15b;l zaufanie"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkConfidenceActionPerformed"/>
@@ -200,18 +182,6 @@
     <Component class="javax.swing.JTextField" name="txtConfidence">
       <Properties>
         <Property name="text" type="java.lang.String" value="0,25"/>
-=======
-        <Property name="text" type="java.lang.String" value="2"/>
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
-=======
-        <Property name="text" type="java.lang.String" value="2"/>
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
-=======
-        <Property name="text" type="java.lang.String" value="2"/>
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
-=======
-        <Property name="text" type="java.lang.String" value="2"/>
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>

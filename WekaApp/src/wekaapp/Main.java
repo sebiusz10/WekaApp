@@ -1,17 +1,27 @@
-package wekaapp.ui;
+
+package wekaapp;
+import com.sun.xml.internal.ws.api.message.Message;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FileDialog;
-
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import weka.core.converters.ConverterUtils.DataSource;
-import wekaapp.data.Helper;
-
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import weka.core.Instances;
-import wekaapp.MyWeka;
+import weka.core.converters.ConverterUtils.DataSource;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import weka.core.Attribute;
+import weka.classifiers.trees.J48;
+import weka.core.Instances;
+import weka.gui.treevisualizer.PlaceNode2;
+import weka.gui.treevisualizer.TreeVisualizer;
 
 
 
@@ -23,8 +33,6 @@ public class Main extends javax.swing.JFrame
 {
 
     Instances data = null;
-    private String sDirectory;
-    private String sFile;
     
     public Main()
     {
@@ -54,6 +62,8 @@ public class Main extends javax.swing.JFrame
         chkUnprunedTree = new javax.swing.JCheckBox();
         chkMinimal = new javax.swing.JCheckBox();
         txtMinimal = new javax.swing.JTextField();
+        chkConfidence = new javax.swing.JCheckBox();
+        txtConfidence = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,6 +114,16 @@ public class Main extends javax.swing.JFrame
         txtMinimal.setText("2");
         txtMinimal.setEnabled(false);
 
+        chkConfidence.setText("Określ zaufanie");
+        chkConfidence.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkConfidenceActionPerformed(evt);
+            }
+        });
+
+        txtConfidence.setText("0,25");
+        txtConfidence.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,14 +131,12 @@ public class Main extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(chkMinimal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtMinimal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblInfo)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(chkUnprunedTree)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(chkConfidence)
+                                .addComponent(chkUnprunedTree))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnGenerateTree))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,7 +145,13 @@ public class Main extends javax.swing.JFrame
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtSource, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtConfidence, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(chkMinimal)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtMinimal, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -142,21 +166,29 @@ public class Main extends javax.swing.JFrame
                     .addComponent(btnBrowse))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chkMinimal)
                     .addComponent(txtMinimal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGenerateTree)
-                    .addComponent(chkUnprunedTree))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnGenerateTree))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chkConfidence)
+                            .addComponent(txtConfidence, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chkUnprunedTree)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseActionPerformed
         
         FileDialog fd =new FileDialog(this,"Wczytaj",FileDialog.LOAD);
    
@@ -164,25 +196,11 @@ public class Main extends javax.swing.JFrame
         String sDirectory=fd.getDirectory();
         String sFile=fd.getFile();
         
-        this.jTextField1.setText(sDirectory + "\\" + sFile);
-    }                                        
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        DataSource source = null;
-        try {
-            source = new DataSource(this.jTextField1.getText());
-            if(source == null){
-                Helper.log.e("We got null");
-                return;
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
         this.txtSource.setText(sDirectory + "\\" + sFile);
-
+        
         //wczytanie pliku
         LoadData(this.txtSource.getText());
-    }                                         
+    }//GEN-LAST:event_btnBrowseActionPerformed
 
     private void LoadData(String Path)
     {
@@ -217,78 +235,19 @@ public class Main extends javax.swing.JFrame
         
         if(this.chkUnprunedTree.isSelected())
         {
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.java
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.java
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.java
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.java
-            lsOptions.add("-U");
-=======
-=======
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.java
-=======
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.java
-=======
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.java
-            if(lsOptions == null)
-            {
-                lsOptions = new ArrayList<String>();
-            }
             lsOptions.add("U");
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.java
         }
                
-        if(this.chkUnprunedTree.isSelected())
+        if(this.chkMinimal.isSelected())
         {
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.java
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.java
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.java
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.java
-            lsOptions.add("-M");
-            lsOptions.add(this.txtMinimal.getText());
+            lsOptions.add("M" + this.txtMinimal.getText());
         }
         
         if(this.chkConfidence.isSelected())
         {
-            lsOptions.add("-C");
-            lsOptions.add(this.txtConfidence.getText());
+            lsOptions.add("C" + this.txtConfidence.getText());
         }
         
-=======
-            if(lsOptions == null)
-            {
-                lsOptions = new ArrayList<String>();
-            }
-            lsOptions.add("M" + this.txtMinimal.getText());
-        }
-        
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.java
-=======
-            if(lsOptions == null)
-            {
-                lsOptions = new ArrayList<String>();
-            }
-            lsOptions.add("M" + this.txtMinimal.getText());
-        }
-        
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.java
-=======
-            if(lsOptions == null)
-            {
-                lsOptions = new ArrayList<String>();
-            }
-            lsOptions.add("M" + this.txtMinimal.getText());
-        }
-        
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.java
-=======
-            if(lsOptions == null)
-            {
-                lsOptions = new ArrayList<String>();
-            }
-            lsOptions.add("M" + this.txtMinimal.getText());
-        }
-        
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.java
         String[] aOptions = new String[lsOptions.size()];
         lsOptions.toArray(aOptions); 
         
@@ -307,6 +266,18 @@ public class Main extends javax.swing.JFrame
         }
     }//GEN-LAST:event_chkMinimalActionPerformed
 
+    private void chkConfidenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkConfidenceActionPerformed
+        
+        if(this.chkConfidence.isSelected())
+        {
+            this.txtConfidence.setEnabled(true);
+        }
+        else
+        {
+            this.txtConfidence.setEnabled(false);
+        }
+    }//GEN-LAST:event_chkConfidenceActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -322,12 +293,14 @@ public class Main extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBrowse;
     private javax.swing.JButton btnGenerateTree;
+    private javax.swing.JCheckBox chkConfidence;
     private javax.swing.JCheckBox chkMinimal;
     private javax.swing.JCheckBox chkUnprunedTree;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblInfo;
     private javax.swing.JLabel lblSource;
     private javax.swing.JTable oSourceTable;
+    private javax.swing.JTextField txtConfidence;
     private javax.swing.JTextField txtMinimal;
     private javax.swing.JTextField txtSource;
     // End of variables declaration//GEN-END:variables

@@ -1,7 +1,5 @@
 package wekaapp;
 
-import wekaapp.ui.Main;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -11,7 +9,6 @@ import javax.swing.*;
 /**
  *
  * @author sgolebiewski
- * Dont forget about me: Marcin S. Narowski <axxxon.pl@gmail.com>
  */
 public class WekaApp 
 {
