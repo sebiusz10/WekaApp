@@ -71,7 +71,6 @@
                   <Component id="txtMinimal" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
 <<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -87,15 +86,10 @@
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
 =======
-=======
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnGenerateTree" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="chkUnprunedTree" alignment="3" min="-2" max="-2" attributes="0"/>
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
-=======
 >>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -175,7 +169,6 @@
     <Component class="javax.swing.JTextField" name="txtMinimal">
       <Properties>
 <<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
-<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.form
         <Property name="text" type="java.lang.String" value="Generuj drzewo"/>
         <Property name="name" type="java.lang.String" value="btnBrowse" noResource="true"/>
       </Properties>
@@ -186,9 +179,6 @@
     <Component class="javax.swing.JTextField" name="txtConfidence">
       <Properties>
         <Property name="text" type="java.lang.String" value="0,25"/>
-=======
-        <Property name="text" type="java.lang.String" value="2"/>
->>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
 =======
         <Property name="text" type="java.lang.String" value="2"/>
 >>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.form
