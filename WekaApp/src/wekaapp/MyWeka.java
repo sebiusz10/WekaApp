@@ -47,13 +47,8 @@ public class MyWeka
         J48 cls = new J48();
         
         try 
-        {
+        {            
             cls.setOptions(options);
-            
-            //for(String s:options)
-            //{
-              //  JOptionPane.showInputDialog(s);
-            //}
             cls.buildClassifier(data);
             
             final JFrame jf = new JFrame("Drzewo decyzyjne");

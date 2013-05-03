@@ -241,17 +241,19 @@ public class Main extends javax.swing.JFrame
         
         if(this.chkUnprunedTree.isSelected())
         {
-            lsOptions.add("U");
+            lsOptions.add("-U");
         }
                
         if(this.chkMinimal.isSelected())
         {
-            lsOptions.add("M" + this.txtMinimal.getText());
+            lsOptions.add("-M");
+            lsOptions.add(this.txtMinimal.getText());
         }
         
         if(this.chkConfidence.isSelected())
         {
-            lsOptions.add("C" + this.txtConfidence.getText());
+            lsOptions.add("-C");
+            lsOptions.add(this.txtConfidence.getText());
         }
         
         String[] aOptions = new String[lsOptions.size()];
