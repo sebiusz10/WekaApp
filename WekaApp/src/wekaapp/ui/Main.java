@@ -218,8 +218,11 @@ public class Main extends javax.swing.JFrame
         if(this.chkUnprunedTree.isSelected())
         {
 <<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.java
+<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.java
             lsOptions.add("-U");
 =======
+=======
+>>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.java
             if(lsOptions == null)
             {
                 lsOptions = new ArrayList<String>();
@@ -231,6 +234,7 @@ public class Main extends javax.swing.JFrame
         if(this.chkUnprunedTree.isSelected())
         {
 <<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.java
+<<<<<<< HEAD:WekaApp/src/wekaapp/ui/Main.java
             lsOptions.add("-M");
             lsOptions.add(this.txtMinimal.getText());
         }
@@ -241,6 +245,15 @@ public class Main extends javax.swing.JFrame
             lsOptions.add(this.txtConfidence.getText());
         }
         
+=======
+            if(lsOptions == null)
+            {
+                lsOptions = new ArrayList<String>();
+            }
+            lsOptions.add("M" + this.txtMinimal.getText());
+        }
+        
+>>>>>>> parent of 680249e... Add cofidence option -C:WekaApp/src/wekaapp/Main.java
 =======
             if(lsOptions == null)
             {
