@@ -121,7 +121,7 @@ public class Main extends javax.swing.JFrame
             }
         });
 
-        txtConfidence.setText("0,25");
+        txtConfidence.setText("0.25");
         txtConfidence.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -170,7 +170,6 @@ public class Main extends javax.swing.JFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chkMinimal)
                     .addComponent(txtMinimal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -181,7 +180,7 @@ public class Main extends javax.swing.JFrame
                             .addComponent(txtConfidence, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkUnprunedTree)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 3, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -235,17 +234,19 @@ public class Main extends javax.swing.JFrame
         
         if(this.chkUnprunedTree.isSelected())
         {
-            lsOptions.add("U");
+            lsOptions.add("-U");
         }
                
         if(this.chkMinimal.isSelected())
         {
-            lsOptions.add("M" + this.txtMinimal.getText());
+            lsOptions.add("-M");
+            lsOptions.add(this.txtMinimal.getText());
         }
         
         if(this.chkConfidence.isSelected())
         {
-            lsOptions.add("C" + this.txtConfidence.getText());
+            lsOptions.add("-C");
+            lsOptions.add(this.txtConfidence.getText());
         }
         
         String[] aOptions = new String[lsOptions.size()];

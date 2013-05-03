@@ -75,7 +75,6 @@
                   <Component id="chkMinimal" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtMinimal" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -88,7 +87,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="chkUnprunedTree" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -181,7 +180,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtConfidence">
       <Properties>
-        <Property name="text" type="java.lang.String" value="0,25"/>
+        <Property name="text" type="java.lang.String" value="0.25"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
