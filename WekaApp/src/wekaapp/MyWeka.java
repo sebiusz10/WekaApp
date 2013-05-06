@@ -54,7 +54,7 @@ public class MyWeka
             //}
             cls.buildClassifier(data);
             
-            final JFrame jf = new JFrame("Decisive tree");
+            final JFrame jf = new JFrame("Decisive tree C4.5");
             jf.setSize(500,400);
 
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
