@@ -1,33 +1,15 @@
-
 package wekaapp;
-import com.sun.xml.internal.ws.api.message.Message;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.Toolkit;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import weka.core.Instances;
-import weka.core.converters.ConverterUtils.DataSource;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import weka.core.Attribute;
-import weka.classifiers.trees.J48;
 import weka.core.Instances;
-import weka.gui.treevisualizer.PlaceNode2;
-import weka.gui.treevisualizer.TreeVisualizer;
-
-
 
 /**
  *
- * @authors Sebastian Gołębiewski, Marcin Narowski
+ * @author Sebastian Gołębiewski, Marcin Narowski
  * WZIM Zaoczne 2012/2013
  */
 public class Main extends javax.swing.JFrame 
@@ -70,9 +52,9 @@ public class Main extends javax.swing.JFrame
 
         txtSource.setName("txtPath");
 
-        lblInfo.setText("Plik arff.");
+        lblInfo.setText("ARFF Files.");
 
-        btnBrowse.setText("Przeglądaj");
+        btnBrowse.setText("Browse");
         btnBrowse.setName("btnBrowse");
         btnBrowse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,9 +62,9 @@ public class Main extends javax.swing.JFrame
             }
         });
 
-        lblSource.setText("Zródło:");
+        lblSource.setText("Source:");
 
-        btnGenerateTree.setText("Generuj drzewo");
+        btnGenerateTree.setText("Generate tree");
         btnGenerateTree.setName("btnBrowse");
         btnGenerateTree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,9 +85,9 @@ public class Main extends javax.swing.JFrame
         ));
         jScrollPane1.setViewportView(oSourceTable);
 
-        chkUnprunedTree.setText("Nie przycinaj drzewa");
+        chkUnprunedTree.setText("Use unpruned tree.");
 
-        chkMinimal.setText("Ustal minimalną liczbę przypadków w liściu");
+        chkMinimal.setText("Set minimum number of instances per leaf.");
         chkMinimal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkMinimalActionPerformed(evt);
@@ -115,7 +97,7 @@ public class Main extends javax.swing.JFrame
         txtMinimal.setText("2");
         txtMinimal.setEnabled(false);
 
-        chkConfidence.setText("Określ zaufanie");
+        chkConfidence.setText("Set confidence threshold for pruning.");
         chkConfidence.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkConfidenceActionPerformed(evt);
@@ -189,70 +171,87 @@ public class Main extends javax.swing.JFrame
 
     private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseActionPerformed
         
-        FileDialog fd =new FileDialog(this,"Wczytaj",FileDialog.LOAD);
-   
-        fd.setVisible(true);
-        String sDirectory=fd.getDirectory();
-        String sFile=fd.getFile();
-        
-        this.txtSource.setText(sDirectory + "\\" + sFile);
-        
-        //wczytanie pliku
-        LoadData(this.txtSource.getText());
+        try
+        {   
+            FileDialog fd =new FileDialog(this,"Load file",FileDialog.LOAD);
+
+            fd.setVisible(true);
+            String sDirectory=fd.getDirectory();
+            String sFile=fd.getFile();
+
+            if(!"".equals(sDirectory) && sDirectory != null)
+            {     
+                this.txtSource.setText(sDirectory + "\\" + sFile);
+
+                //wczytanie pliku
+                LoadData(this.txtSource.getText());
+            }
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage());   
+        }
     }//GEN-LAST:event_btnBrowseActionPerformed
 
     private void LoadData(String Path)
     {
      
         this.data = MyWeka.LoadFile(Path);
-        
+
         int countAtr = data.numAttributes();
         int countRows = data.numInstances();
-        
+
         String [] tblColumnNames = new String[countAtr];
         String [][] tblRows = new String[countRows][countAtr];
-        
+
         for(int i=0;i<countAtr;i++)
         {
-           tblColumnNames[i] = data.attribute(i).name();
+            tblColumnNames[i] = data.attribute(i).name();
         }
-        
+
         for(int i=0;i<countRows;i++)
         {
-           for(int j=0;j<countAtr;j++)
-           {
-                tblRows[i][j] = data.instance(i).toString(j);
-           }
+            for(int j=0;j<countAtr;j++)
+            {
+                    tblRows[i][j] = data.instance(i).toString(j);
+            }
         }
- 
+
         oSourceTable.setModel(new DefaultTableModel(tblRows, tblColumnNames));
     }
     
     private void btnGenerateTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateTreeActionPerformed
         
-        ArrayList<String> lsOptions = new ArrayList<String>();
-        
-        if(this.chkUnprunedTree.isSelected())
+        if(this.data != null)
         {
-            lsOptions.add("-U");
+            ArrayList<String> lsOptions = new ArrayList<String>();
+
+            if(this.chkUnprunedTree.isSelected())
+            {
+                lsOptions.add("-U");
+            }
+
+            if(this.chkMinimal.isSelected())
+            {
+                lsOptions.add("-M");
+                lsOptions.add(this.txtMinimal.getText());
+            }
+
+            if(this.chkConfidence.isSelected())
+            {
+                lsOptions.add("-C");
+                lsOptions.add(this.txtConfidence.getText());
+            }
+
+            String[] aOptions = new String[lsOptions.size()];
+            lsOptions.toArray(aOptions); 
+
+            MyWeka.GenerateDecisiveTree(data, aOptions);
         }
-               
-        if(this.chkMinimal.isSelected())
+        else
         {
-            lsOptions.add("-M");
-            lsOptions.add(this.txtMinimal.getText());
+            JOptionPane.showMessageDialog(this, "Please load data file first!");
         }
-        
-        if(this.chkConfidence.isSelected())
-        {
-            lsOptions.add("-C");
-            lsOptions.add(this.txtConfidence.getText());
-        }
-        
-        String[] aOptions = new String[lsOptions.size()];
-        lsOptions.toArray(aOptions); 
-        
-        MyWeka.GenerateDecisiveTree(data, aOptions);
     }//GEN-LAST:event_btnGenerateTreeActionPerformed
 
     private void chkMinimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkMinimalActionPerformed

@@ -1,14 +1,8 @@
 package wekaapp;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import javax.swing.*;
-
 /**
  *
- * @authors Sebastian Gołębiewski, Marcin Narowski
+ * @author Sebastian Gołębiewski, Marcin Narowski
  * WZIM Zaoczne 2012/2013
  */
 public class WekaApp 

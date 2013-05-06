@@ -101,12 +101,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblInfo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Plik arff."/>
+        <Property name="text" type="java.lang.String" value="ARFF Files."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnBrowse">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Przegl&#x105;daj"/>
+        <Property name="text" type="java.lang.String" value="Browse"/>
         <Property name="name" type="java.lang.String" value="btnBrowse"/>
       </Properties>
       <Events>
@@ -115,12 +115,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblSource">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Zr&#xf3;d&#x142;o:"/>
+        <Property name="text" type="java.lang.String" value="Source:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnGenerateTree">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Generuj drzewo"/>
+        <Property name="text" type="java.lang.String" value="Generate tree"/>
         <Property name="name" type="java.lang.String" value="btnBrowse"/>
       </Properties>
       <Events>
@@ -151,12 +151,12 @@
     </Container>
     <Component class="javax.swing.JCheckBox" name="chkUnprunedTree">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nie przycinaj drzewa"/>
+        <Property name="text" type="java.lang.String" value="Use unpruned tree."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="chkMinimal">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ustal minimaln&#x105; liczb&#x119; przypadk&#xf3;w w li&#x15b;ciu"/>
+        <Property name="text" type="java.lang.String" value="Set minimum number of instances per leaf."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkMinimalActionPerformed"/>
@@ -170,7 +170,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="chkConfidence">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Okre&#x15b;l zaufanie"/>
+        <Property name="text" type="java.lang.String" value="Set confidence threshold for pruning."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkConfidenceActionPerformed"/>

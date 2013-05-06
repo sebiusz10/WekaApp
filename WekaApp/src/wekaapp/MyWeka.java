@@ -4,11 +4,8 @@ package wekaapp;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import weka.core.Attribute;
 import weka.classifiers.trees.J48;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
@@ -17,7 +14,7 @@ import weka.gui.treevisualizer.TreeVisualizer;
 
 /**
  *
- * @authors Sebastian Gołębiewski, Marcin Narowski
+ * @author Sebastian Gołębiewski, Marcin Narowski
  * WZIM Zaoczne 2012/2013
  */
 public class MyWeka 
@@ -34,7 +31,7 @@ public class MyWeka
         } 
         catch (Exception ex) 
         {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
         if (data.classIndex() == -1)
@@ -57,7 +54,7 @@ public class MyWeka
             //}
             cls.buildClassifier(data);
             
-            final JFrame jf = new JFrame("Drzewo decyzyjne");
+            final JFrame jf = new JFrame("Decisive tree");
             jf.setSize(500,400);
 
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -82,7 +79,7 @@ public class MyWeka
         } 
         catch (Exception ex) 
         {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 }
