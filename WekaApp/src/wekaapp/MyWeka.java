@@ -17,7 +17,8 @@ import weka.gui.treevisualizer.TreeVisualizer;
 
 /**
  *
- * @author sgolebiewski
+ * @authors Sebastian Gołębiewski, Marcin Narowski
+ * WZIM Zaoczne 2012/2013
  */
 public class MyWeka 
 {
